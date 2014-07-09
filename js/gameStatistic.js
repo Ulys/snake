@@ -47,7 +47,7 @@ GameStatistic.MEAL_FOR_NEXT_LEVEL = 5;
  * @function create game statistic panel
  */
  GameStatistic.prototype.createPanel = function() {
-	console.log("game statistic create panel...");
+	//console.log("game statistic create panel...");
 	var panel = document.createElement("div"),
 		wrapper = document.getElementById("wrapper");
 	panel.id = "statistic";
@@ -71,6 +71,9 @@ GameStatistic.prototype.update = function() {
 	if (this.lengthUpdate()) {
 		++this.meal;
 		levelUp = this.levelUpdate();
+		if (levelUp) {
+			this.score += (GameStatistic.LEVEL_UP_BONUS * this.level)
+		}
 		this.scoreUpdate();
 		this.updateView();
 		
@@ -107,14 +110,12 @@ GameStatistic.prototype.levelUpdate = function() {
  */
  GameStatistic.prototype.scoreUpdate = function() {
  	// console.log("game statistic score update ...");
- 	this.score += Math.floor(GameStatistic.SCORE_FOR_MEAL + (this.level * GameStatistic.LEVEL_FACTOR));
+ 	this.score += Math.floor(GameStatistic.SCORE_FOR_MEAL * (this.level * GameStatistic.LEVEL_FACTOR));
  	return true;
  };
  /** @function update view of score and level */
  GameStatistic.prototype.updateView = function() {
-	console.log("game statistic update view ...");
-	console.log(this.scoreView);
-	console.log(this.score);
+	//console.log("game statistic update view ...");
 	this.levelView.innerHTML = "<h3>Level<br>" + this.level + "</h3>";
 	this.scoreView.innerHTML = "<h3>Score<br>" + this.score + "</h3>";
  }
